@@ -1,0 +1,73 @@
+
+REQUIREMENTS:
+
+-console greets player
+-console asks for players name and stores it
+
+Walking
+    -ask user to enter "w" to talk
+    -when the player walks, a random algorithm will be run to determine if a wild enemy has appeared
+        -1/3 or 1/4 chance of attack
+If a wild enemy appears
+    -random enemy chosen out of 3
+    -user chooses to attack or run
+    -50% chance of escape with run
+    -if the player is attacked, player gets a random dammage amount 
+    -if the player kills the enemy
+        -give the player some HP and a special item that is stored in the inventory
+        - After this the player continues walking
+        -Use a while loop to control the flor
+    -If the enemy kills the player, console prints a cool death message, the game ends
+Inventory
+    -when the player kills enemies, they are awarded with items
+    -if the user enters 'Print' or 'p' in the console, the console will print the players
+     name, HP, and each item in their inventory
+
+-----------------------------------------------
+PSEUDO CODE:
+
+initialize game
+     get user name  (use readline-sync)
+     console.log(message to greet player)
+     store user in inventory
+
+test input
+    IF input is "Print" or "p"
+        print player inventory
+    ELSE IF input is "q" or "Quit"
+        exit while loop
+ 
+WHILE game is being played 
+
+Walking
+     ask for user input
+     IF "w"
+         THEN random enemy chance (1/3 or 1/4)
+         IF enemy encountered
+            THEN Generate Enemy
+     ELSE
+         THEN invalid input, ask question again
+
+Generate Enemy
+     SET ememies to list "Sasquach", "Ironman", and "Tooth Fairy"
+     SET enemy to list[randomNum between 0-2(inclusive)]
+
+
+Inventory(name, hp, items)
+    SET name
+    SET hp
+    SET items
+    FUNCTION console log name, hp and items
+
+Battle 
+    SET user input
+    IF attack
+        hp gets randomNum damage amount between 1-100
+        player continues walking (pass to new loop iteration)
+    IF run
+        generate random (50% chance of escape)
+        IF survived
+            player continues walking (pass to new loop iteration)
+        ELSE 
+            Game is over, exit While loop, cosole log message
+END WHILE
