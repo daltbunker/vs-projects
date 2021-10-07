@@ -30,19 +30,19 @@ function setupInput(prompt, ...expectedInput) {
 // Create Inventory object to store user name and character, returns player Object and level
 function initGame() {
     levelList = [
-        "____🌲____🌲____🌲____🌲____🌲____🌲___🌲____🌲____🌲____🌲____🌲____🌲____",
-        "____🌧____🌧____🌧____🌧____🌧____🌧___🌧____🌧____🌧____🌧____🌧____🌧____",
-        "____🔥____🔥____🔥____🔥____🔥____🔥___🔥____🔥____🔥____🔥____🔥____🔥____"
+        "___________🌲___________________🌲_____________🌲___________________🌲_______________",
+        "___________🌧___________________🌧_____________🌧___________________🌧_______________",
+        "___________🔥___________________🔥_____________🔥___________________🔥_______________"
     ]
     characters = ["🧛‍", "🎅", "🦸"];
-
+    console.log("Welcome to the Colossal Adventure! Follow the prompt below to get started.")
     const userInput = readline.question("Enter your name: ");
     console.table(characters);
     const charIndex = setupInput("Choose A Character: ", "0", "1", "2");
     const currentPlayer = new Inventory(userInput, characters[charIndex]);
     console.table(levelList);
     const level = setupInput("Select A level: ", "0", "1", "2");
-    console.log(`Hello ${userInput}, Welcome to the Colossal Adventure!\n'Print' of 'p' to view inventory, 'q' to quit`);
+    console.log(`Hello ${userInput}, get ready to begin! ('Print' or 'p' to view inventory, 'q' to quit)`);
     return [currentPlayer, levelList[level]];
 }
 
@@ -84,8 +84,8 @@ function playing(player) {
 }
 
 function generateEnemy() {
-    const enemies = ["Iron Man", "Sasquach", "The Tooth Fairy"];
-    const enemy = enemies[generateRandom(3)];
+    const enemies = ["Iron Man", "Sasquatch", "The Tooth Fairy", "Robbin Hood", "An Elephant"];
+    const enemy = enemies[generateRandom(enemies.length)];
     return enemy
 }
 
@@ -110,23 +110,24 @@ function battle(enemy, player) {
 
 //  Deducts HP from character object. Returns boolean
 function attackDamage(enemy, player) {
-    const damage = generateRandom(100, 1);
+    const damage = generateRandom(60, 30);
     player.hp -= damage;
-    console.log(`Fighting ${enemy}...\nYou lost ${damage} hp`);
+    console.log(`Fighting ${enemy}...\n-${damage} hp`);
     const health = checkHealth(enemy, player);
     return health;
 }
 
 // Handles fight result, game over or back to playing(). Returns boolean
 function checkHealth(enemy, player) {
-    const itemsList = ["Shield", "Top Hat", "Small Red Shoes", "Bird", "Backpack"];
+    const itemsList = ["Shield", "Top Hat", "Small Red Shoe", "Bird", "Backpack"];
     if (player.hp > 0) {
         const newItem = itemsList[generateRandom(itemsList.length)];
-        console.log(`New Item: ${newItem}`);
+        player.hp += 20;
+        console.log(`${enemy} defeated, you got a ${newItem} and 20 hp!`);
         player.items.push(newItem);
         return true;
     } else {
-        console.log(`You've been defeated by ${enemy}, better luck next year... GAME OVER`);
+        console.log(`GAMEOVER. Defeated by ${enemy}, better luck next year...`);
         return false;
     }
 }
