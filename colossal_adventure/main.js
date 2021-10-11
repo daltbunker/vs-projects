@@ -75,7 +75,7 @@ function playing(player) {
             console.log("Walking...");
         } else {
             const enemy = generateEnemy();
-            console.log(`Look out! ${enemy} is coming`);
+            console.log(`Look out! ${enemy._name} is coming`);
             const battleResult = battle(enemy, player);
             return battleResult;
         }
@@ -84,7 +84,28 @@ function playing(player) {
 }
 
 function generateEnemy() {
-    const enemies = ["Iron Man", "Sasquatch", "The Tooth Fairy", "Robbin Hood", "An Elephant"];
+    const enemies = [
+        {
+            _name: "Iron Man",
+            damage: 50
+        },
+        {
+            _name: "Sasquatch",
+            damage: 30
+        },
+        {
+            _name: "The Tooth Fairy",
+            damage: 65
+        },
+        {
+            _name: "Robin Hood",
+            damage: 40
+        },
+        {
+            _name: "An Elephant",
+            damage: 85
+        },
+    ];
     const enemy = enemies[generateRandom(enemies.length)];
     return enemy
 }
@@ -110,24 +131,23 @@ function battle(enemy, player) {
 
 //  Deducts HP from character object. Returns boolean
 function attackDamage(enemy, player) {
-    const damage = generateRandom(60, 30);
-    player.hp -= damage;
-    console.log(`Fighting ${enemy}...\n-${damage} hp`);
+    player.hp -= enemy.damage;
+    console.log(`Fighting ${enemy._name}...\n-${enemy.damage} hp`);
     const health = checkHealth(enemy, player);
     return health;
 }
 
 // Handles fight result, game over or back to playing(). Returns boolean
 function checkHealth(enemy, player) {
-    const itemsList = ["Shield", "Top Hat", "Small Red Shoe", "Bird", "Backpack"];
+    const itemsList = ["Shield", "Top Hat", "Small Red Shoe", "Bird", "Backpack", "Guitar", "Ball Point Pen"];
     if (player.hp > 0) {
         const newItem = itemsList[generateRandom(itemsList.length)];
         player.hp += 20;
-        console.log(`${enemy} defeated, you got a ${newItem} and 20 hp!`);
+        console.log(`${enemy._name} defeated, you got a ${newItem} and 20 hp!`);
         player.items.push(newItem);
         return true;
     } else {
-        console.log(`GAMEOVER. Defeated by ${enemy}, better luck next year...`);
+        console.log(`GAMEOVER. Defeated by ${enemy._name}, better luck next year...`);
         return false;
     }
 }
