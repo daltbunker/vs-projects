@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap');
+
+:root {
+    --dark-blue:#11538C;
+    --mid-blue:#115D8C;
+    --white:#F0F1F2;
+    --sky-blue:#05daf280;
+    --aqua:#0396A6;
+}
+
+* {
+    font-family: 'Rubik', 'sans-serif';
+    margin: 0px;
+    padding: 0px;
+    color: var(--white);
+}
+
+body {
+    display: none;
+    background: linear-gradient(to right, var(--dark-blue), var(--mid-blue));
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    margin: 20px;
+}
+
+.todo-container {
+    width: 70%;
+    border: 3px solid var(--white);
+    border-radius: 5px;
+}
+
+.todo-item{
+    display: grid;
+    align-items: center;
+    grid-template-columns: 30px repeat(9, 1fr) 50px 50px;
+    margin: 10px;
+    background-color: var(--sky-blue);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.checked-todo-item {
+    
+}
+
+.todo-title {
+    grid-column: 3/4;
+}
+
+.todo-price {
+    grid-column: 5/6;
+}
+
+.todo-description {
+    grid-column: 7/8;
+}
+
+.todo-imgUrl {
+    max-height: 100px;
+    width: 100%; 
+    grid-column: 9/10;
+}
+
+.todo-completed {
+    grid-column: 2/3;
+}
+
+.todo-completed:hover {
+    cursor: pointer;
+}
+
+button {
+    background-color: var(--white);
+    color: black;
+    border: none;
+    border-radius: 4px;
+    margin: 5px;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+.edit-btn {
+    grid-column: -2/-3;
+}
+
+.delete-btn {
+    grid-column: -1/-2;
+}
+
+#add-btn, #submit-btn {
+    font-weight: bolder;
+    font-size: 20px;
+    margin-top: 20px;
+    padding: 10px;
+}
+
+.add-todo {
+    display: flex;
+    justify-content: center;
+}
+
+.add-todo form {
+    display: none;
+}
+
+.form-container {
+    background-color: var(--white);
+    width: 300px;
+    height: 300px;
+}
+
+.form-container label {
+    color: black;
+}
+
+.form-container input {
+    color: black;
+}
