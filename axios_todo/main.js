@@ -2,10 +2,12 @@ todoUrl = "https://api.vschool.io/dalton/todo/";
 let currentId = "";
 const addNewBtn = document.querySelector("#add-btn");
 const submitBtn = document.querySelector("#submit-btn");
+const closeBtn = document.querySelector("#close-btn");
 const todoContainer = document.querySelector(".todo-container");
 const todoForm = document["todo-form"];
 
 addNewBtn.addEventListener("click", displayForm);
+closeBtn.addEventListener("click",hideForm);
 todoForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const buttonText = e.submitter.textContent;
@@ -17,16 +19,14 @@ todoForm.addEventListener("submit", (e) => {
 })
 
 function onFormSubmit() {
-    hideForm();
     const newObj = createTodoObj();
-    clearForm();
+    hideForm();
     addTodo(newObj);
 }
 
 function onFormSave() {
-    hideForm();
     const updatedObj = createTodoObj();
-    clearForm();
+    hideForm();
     editTodo(updatedObj);
 }
 
@@ -41,6 +41,7 @@ function hideForm() {
     addNewBtn.style.display = "block";
     todoContainer.style.display = "block";
     todoForm.style.display = "none";
+    clearForm();
 }
 
 function createTodoObj() {
@@ -57,6 +58,11 @@ function createNewTodo(todoObj) {
     const newTodo = document.createElement("div");
     newTodo.classList.add("todo-item");
     newTodo.id = todoObj["_id"];
+    if (todoObj["completed"]) {
+        newTodo.classList.add("checked-todo");
+        } else {
+        newTodo.classList.remove("checked-todo");
+    }
     const todoItems = [
         ["input", "todo-completed", "completed"], ["div", "todo-title", "title"], ["div", "todo-price", "price"], ["div", "todo-description", "description"],
         ["img", "todo-imgUrl", "imgUrl"], ["button", "edit-btn", "edit"] ,["button", "delete-btn", "x"]
@@ -67,19 +73,15 @@ function createNewTodo(todoObj) {
         newItem.classList.add(items[1]);
         switch(items[0]) {
             case("div"):
-                newItem.textContent = todoObj[items[2]];
                 if (items[2] === "price") {
-                    newItem.textContent += " $"
+                    newItem.textContent = "$ " + todoObj[items[2]];
+                } else {
+                    newItem.textContent = todoObj[items[2]];
                 }
                 break;
             case("button"):
                 newItem.textContent = items[2];
                 if (items[2] === "edit") {
-                    if (todoObj["completed"]) {
-                        newTodo.classList.add("checked-todo")
-                    } else {
-                        newTodo.classList.remove("checked-todo")
-                    }
                     newItem.addEventListener("click", (e) => {
                         displayForm();
                         currentId = e.path[1].id;
@@ -107,9 +109,9 @@ function createNewTodo(todoObj) {
 }
 
 function getAllTodos() {
-    clearAllTodos();
     axios.get(todoUrl)
         .then(response => {
+            clearAllTodos();
             response.data.forEach(item => {
                 createNewTodo(item);
                 document.body.style.display = "block";
@@ -173,7 +175,10 @@ function itemChecked(event) {
 }
 
 function validateImg(imgUrl) {
-    return imgUrl ? imgUrl : "./default.jpeg";
+    axios.get(imgUrl)
+        .then(resp => console.log(resp))
+        .catch(error => console.log(error))
+    return imgUrl ? imgUrl : "./default.jpeg"; // FIXME: Verify url with get request
 }
 
 function clearForm() {
@@ -183,15 +188,4 @@ function clearForm() {
     todoForm.imgUrl.value = "";
 }
 
-
 getAllTodos();
-
-// sampleTodo = {
-//     title: "Groceries",
-//     price: 30,
-//     description: "Apples, Bananas, Bread",
-//     imgUrl: "",
-//     completed: null,
-// }
-// createNewTodo(sampleTodo);
-// createNewTodo(sampleTodo);

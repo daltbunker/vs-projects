@@ -51,8 +51,8 @@ h1 {
 }
 
 .todo-title, .todo-price, .todo-description {
-    border-top: 1px solid white;
-    border-bottom: 1px solid white;
+    border-top: 1px solid var(--white);
+    border-bottom: 1px solid var(--white);
     text-align: center;
     padding: 5px;
 }
@@ -98,6 +98,8 @@ button {
 
 button:hover {
     cursor: pointer;
+    transition: 200ms;
+    box-shadow: 6px 6px 3px rgba(5, 5, 5, 0.288);
 }
 
 .edit-btn, .delete-btn {
@@ -115,7 +117,12 @@ button:hover {
     font-weight: bolder;
 }
 
-#add-btn, #submit-btn {
+.edit-btn:hover, .delete-btn:hover {
+    box-shadow: 3px 3px 3px rgba(5, 5, 5, 0.288);
+    
+}
+
+#add-btn, #submit-btn, #close-btn {
     font-weight: bolder;
     font-size: 20px;
     margin-top: 20px;
