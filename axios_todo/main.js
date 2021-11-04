@@ -18,6 +18,9 @@ todoForm.addEventListener("submit", (e) => {
     }
 })
 
+
+// FORM HANDLERS
+
 function onFormSubmit() {
     const newObj = createTodoObj();
     hideForm();
@@ -44,15 +47,28 @@ function hideForm() {
     clearForm();
 }
 
-function createTodoObj() {
-    newTodoObj = {
-        "title": todoForm.title.value,
-        "price": todoForm.price.value,
-        "description": todoForm.description.value,
-        "imgUrl": todoForm.imgUrl.value
-    }
-    return newTodoObj;
+function populateForm() {
+    url = todoUrl + currentId
+    axios.get(url)
+        .then(response => {
+            todoObj = response.data;
+            submitBtn.textContent = "SAVE";
+            todoForm.title.value = todoObj.title;
+            todoForm.price.value = todoObj.price;
+            todoForm.description.value =todoObj.description;
+            todoForm.imgUrl.value = todoObj.imgUrl;;
+        })
+        .catch(error => alert(`Edit-todo(GET): ${error}`))   
 }
+
+function clearForm() {
+    todoForm.title.value = "";
+    todoForm.price.value = "";
+    todoForm.description.value = "";
+    todoForm.imgUrl.value = "";
+}
+
+// TODO ELEMENTS (HTML)
 
 function createNewTodo(todoObj) {
     const newTodo = document.createElement("div");
@@ -63,50 +79,56 @@ function createNewTodo(todoObj) {
         } else {
         newTodo.classList.remove("checked-todo");
     }
-    const todoItems = [
-        ["input", "todo-completed", "completed"], ["div", "todo-title", "title"], ["div", "todo-price", "price"], ["div", "todo-description", "description"],
-        ["img", "todo-imgUrl", "imgUrl"], ["button", "edit-btn", "edit"] ,["button", "delete-btn", "x"]
-    ]
-
-    todoItems.forEach(items => {
-        const newItem = document.createElement(items[0]);
-        newItem.classList.add(items[1]);
-        switch(items[0]) {
-            case("div"):
-                if (items[2] === "price") {
-                    newItem.textContent = "$ " + todoObj[items[2]];
-                } else {
-                    newItem.textContent = todoObj[items[2]];
-                }
-                break;
-            case("button"):
-                newItem.textContent = items[2];
-                if (items[2] === "edit") {
-                    newItem.addEventListener("click", (e) => {
-                        displayForm();
-                        currentId = e.path[1].id;
-                        populateForm();
-                        submitBtn.textContent = "SAVE";
-                    })
-                } else {
-                    newItem.addEventListener("click", e => deleteTodo(e))
-                }
-                break;
-            case("input"):
-                newItem.type = "checkbox";
-                newItem.checked = todoObj[items[2]];
-                newItem.addEventListener("click", e => itemChecked(e))
-                break;
-            case("img"):
-                newItem.src = validateImg(todoObj[items[2]]);
-                break;
-            default:
-                break;
-        }
-        newTodo.appendChild(newItem);
+    const elementClasses = ["todo-completed", "todo-title", "todo-price", "todo-description", "todo-imgUrl", "edit-btn", "delete-btn"];
+    createTodoElements(todoObj).forEach((element, i) => {
+        element.classList.add(elementClasses[i]);
+        newTodo.appendChild(element);
     })
     todoContainer.appendChild(newTodo);
+  }
+  
+function createTodoElements(todoObj) {
+    const todoCompleted = document.createElement("input");
+    todoCompleted.type = "checkbox";
+    todoCompleted.checked = todoObj["completed"];
+    todoCompleted.addEventListener("click", e => itemChecked(e))
+    const todoTitle = document.createElement("div");
+    todoTitle.textContent = todoObj["title"];
+    const todoPrice = document.createElement("div");
+    todoPrice.textContent = `$ ${todoObj["price"]}`;
+    const todoDescription = document.createElement("div");
+    todoDescription.textContent = todoObj["description"];
+    const todoImgUrl = document.createElement("img");
+    todoImgUrl.src = validateImg(todoObj["imgUrl"])
+    const editBtn = document.createElement("button");
+    editBtn.textContent = "edit";
+    editBtn.addEventListener("click", (e) => {  
+        displayForm();
+        currentId = e.path[1].id;
+        populateForm();
+        submitBtn.textContent = "SAVE";
+    });
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "x";
+    deleteBtn.addEventListener("click", e => deleteTodo(e));
+    return [todoCompleted, todoTitle, todoPrice, todoDescription, todoImgUrl, editBtn, deleteBtn];
+  }
+
+function createTodoObj() {
+    newTodoObj = {
+        "title": todoForm.title.value,
+        "price": todoForm.price.value,
+        "description": todoForm.description.value,
+        "imgUrl": todoForm.imgUrl.value
+    }
+    return newTodoObj;
 }
+
+function validateImg(imgUrl) {
+    return imgUrl ? imgUrl : "./default.jpeg";
+}
+
+// SERVER REQUESTS
 
 function getAllTodos() {
     axios.get(todoUrl)
@@ -139,20 +161,6 @@ function editTodo(todoObj) {
             .catch(error => alert(`Add Todo(PUT): ${error}`))
 }
 
-function populateForm() {
-    url = todoUrl + currentId
-    axios.get(url)
-        .then(response => {
-            todoObj = response.data;
-            submitBtn.textContent = "SAVE";
-            todoForm.title.value = todoObj.title;
-            todoForm.price.value = todoObj.price;
-            todoForm.description.value =todoObj.description;
-            todoForm.imgUrl.value = todoObj.imgUrl;;
-        })
-        .catch(error => alert(`Edit-todo(GET): ${error}`))   
-}
-
 function deleteTodo(event) {
     const todoId = event.path[1].id;
     axios.delete(todoUrl + todoId)
@@ -162,6 +170,7 @@ function deleteTodo(event) {
 
 function itemChecked(event) {
     const todoId = event.path[1].id;
+    console.log(currentId === todoId)
     event.path[1].classList.toggle("checked-todo");
     updatedObj = {
         "completed": false
@@ -172,20 +181,6 @@ function itemChecked(event) {
     axios.put(todoUrl + todoId, updatedObj)
         .then(response => response)
         .catch(error => alert(`Checked-item(PUT): ${error}`))
-}
-
-function validateImg(imgUrl) {
-    axios.get(imgUrl)
-        .then(resp => console.log(resp))
-        .catch(error => console.log(error))
-    return imgUrl ? imgUrl : "./default.jpeg"; // FIXME: Verify url with get request
-}
-
-function clearForm() {
-    todoForm.title.value = "";
-    todoForm.price.value = "";
-    todoForm.description.value = "";
-    todoForm.imgUrl.value = "";
 }
 
 getAllTodos();
