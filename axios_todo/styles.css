@@ -42,12 +42,19 @@ h1 {
     grid-template-columns: 30px repeat(9, 1fr) 50px 50px;
     margin: 10px;
     background-color: var(--sky-blue);
-    padding: 10px;
+    padding: 5px;
     border-radius: 5px;
 }
 
-.checked-todo-item {
-    
+.checked-todo{
+    opacity: 50%;
+}
+
+.todo-title, .todo-price, .todo-description {
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    text-align: center;
+    padding: 5px;
 }
 
 .todo-title {
@@ -66,10 +73,15 @@ h1 {
     max-height: 100px;
     width: 100%; 
     grid-column: 9/10;
+    border: 1px solid var(--dark-blue);
+    text-align: center;
+    padding: 0px;
 }
 
 .todo-completed {
     grid-column: 2/3;
+    width: 20px;
+    height: 20px;
 }
 
 .todo-completed:hover {
@@ -88,12 +100,19 @@ button:hover {
     cursor: pointer;
 }
 
+.edit-btn, .delete-btn {
+    background-color: var(--dark-blue);
+    color: var(--white);
+    padding: 7px 3px;
+}
+
 .edit-btn {
     grid-column: -2/-3;
 }
 
 .delete-btn {
     grid-column: -1/-2;
+    font-weight: bolder;
 }
 
 #add-btn, #submit-btn {
@@ -103,25 +122,51 @@ button:hover {
     padding: 10px;
 }
 
+#add-btn {
+    margin-bottom: 20px;
+}
+
 .add-todo {
     display: flex;
     justify-content: center;
 }
 
+/* TODO FORM */
+
 .add-todo form {
     display: none;
+    text-align: center;
 }
 
 .form-container {
-    background-color: var(--white);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: var(--sky-blue);
+    padding: 20px 60px;
+    border-radius: 4px;
     width: 300px;
     height: 300px;
 }
 
 .form-container label {
-    color: black;
+    color: var(--white);
 }
 
-.form-container input {
+.form-container label:hover {
+    cursor: pointer;
+}
+
+.form-container input, .form-container textarea {
     color: black;
+    border: 1px solid var(--dark-blue);
+    border-radius: 4px;
+    width: 70%;
+    padding: 2px 5px;
+    height: 25px;
+}
+
+#description {
+    height: 50px;
 }
