@@ -30,6 +30,8 @@ h1 {
     margin: 20px;
 }
 
+/* TODO ELEMENTS */
+
 .todo-container {
     width: 70%;
     border: 3px solid var(--white);
@@ -67,6 +69,8 @@ h1 {
 
 .todo-description {
     grid-column: 7/8;
+    border: none;
+    font-size: 12px;
 }
 
 .todo-imgUrl {
@@ -87,6 +91,8 @@ h1 {
 .todo-completed:hover {
     cursor: pointer;
 }
+
+/* BUTTONS */
 
 button {
     background-color: var(--white);
@@ -152,6 +158,7 @@ button:hover {
     justify-content: space-evenly;
     background-color: var(--sky-blue);
     padding: 20px 60px;
+    border: 1px solid var(--white);
     border-radius: 4px;
     width: 300px;
     height: 300px;
@@ -176,4 +183,79 @@ button:hover {
 
 #description {
     height: 50px;
+}
+
+@media only screen and (max-width: 1000px) {
+    .todo-container {
+        width: 90%;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .todo-title, .todo-price {
+            font-size: 12px;
+        }
+}
+
+@media only screen and (max-width: 650px) {
+
+    .todo-item {
+        grid-template-rows: 1fr 1fr 1fr;
+    }
+    .todo-title, .todo-price, .todo-description {
+            font-size: 20px;
+            padding: 3px 0px;
+            border: none;
+        }
+
+    .todo-completed {
+        grid-row: 3 / 4;
+        grid-column: 3 / 4;
+    }
+
+    .todo-title {
+        grid-column: 1 / 4;
+        border-right: 1px solid var(--white);
+        padding-right: 5px;
+    }
+
+    .todo-price {
+        grid-column: 4 / 7;
+    }
+
+    .todo-description {
+        grid-row: 2 / 3;
+        grid-column: 2 / 6;
+    }
+
+    .todo-imgUrl {
+        object-fit: cover;
+        grid-row: 1 / 3;
+        grid-column: 8 / 13;
+    }
+
+    .edit-btn {
+        grid-column: 11 / 12;
+    }
+
+    .delete-btn {
+        width: 26px;
+        grid-column: 12 / 13;
+
+    }
+
+    .delete-btn, .edit-btn {
+        grid-row: 3 / 4;
+        padding: 6px;
+    }
+
+    .form-container {
+        padding: 5px;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .todo-title, .todo-price, .todo-description {
+        font-size: 12px;
+    }
 }

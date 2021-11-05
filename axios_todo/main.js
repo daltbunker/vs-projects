@@ -19,7 +19,7 @@ todoForm.addEventListener("submit", (e) => {
 })
 
 
-// FORM HANDLERS
+//#region FORM HANDLERS
 
 function onFormSubmit() {
     const newObj = createTodoObj();
@@ -58,7 +58,7 @@ function populateForm() {
             todoForm.description.value =todoObj.description;
             todoForm.imgUrl.value = todoObj.imgUrl;;
         })
-        .catch(error => alert(`Edit-todo(GET): ${error}`))   
+        .catch(error => alert(`Populate-form(GET): ${error}`))   
 }
 
 function clearForm() {
@@ -67,9 +67,9 @@ function clearForm() {
     todoForm.description.value = "";
     todoForm.imgUrl.value = "";
 }
+//#endregion
 
-// TODO ELEMENTS (HTML)
-
+//#region CREATE ELEMENTS (HTML)
 function createNewTodo(todoObj) {
     const newTodo = document.createElement("div");
     newTodo.classList.add("todo-item");
@@ -91,15 +91,15 @@ function createTodoElements(todoObj) {
     const todoCompleted = document.createElement("input");
     todoCompleted.type = "checkbox";
     todoCompleted.checked = todoObj["completed"];
-    todoCompleted.addEventListener("click", e => itemChecked(e))
+    todoCompleted.addEventListener("click", e => itemChecked(e));
     const todoTitle = document.createElement("div");
     todoTitle.textContent = todoObj["title"];
     const todoPrice = document.createElement("div");
-    todoPrice.textContent = `$ ${todoObj["price"]}`;
+    todoPrice.textContent = `$${todoObj["price"]}`;
     const todoDescription = document.createElement("div");
     todoDescription.textContent = todoObj["description"];
     const todoImgUrl = document.createElement("img");
-    todoImgUrl.src = validateImg(todoObj["imgUrl"])
+    todoImgUrl.src = validateImg(todoObj["imgUrl"]);
     const editBtn = document.createElement("button");
     editBtn.textContent = "edit";
     editBtn.addEventListener("click", (e) => {  
@@ -128,37 +128,48 @@ function validateImg(imgUrl) {
     return imgUrl ? imgUrl : "./default.jpeg";
 }
 
-// SERVER REQUESTS
-
-function getAllTodos() {
-    axios.get(todoUrl)
-        .then(response => {
-            clearAllTodos();
-            response.data.forEach(item => {
-                createNewTodo(item);
-                document.body.style.display = "block";
-            });
-        })
-        .catch(error => alert(`Get All(GET): ${error}`))
-}
-
 function clearAllTodos() {
     const todos = document.querySelector(".todo-container");
     while (todos.firstChild) {
         todos.removeChild(todos.firstChild);
     }
 }
+//#endregion
+
+//#region SERVER REQUESTS
+function getAllTodos() {
+    axios.get(todoUrl)
+        .then(response => {
+            clearAllTodos();
+            if (response.data.length === 0) {
+                createNewTodo(
+                    {
+                        "title": "Sample",
+                        "price": 45,
+                        "description": "This is a sample, edit and delete don't work",
+                        "imgUrl": "",
+                    }
+                );
+            } else {
+                response.data.forEach(item => {
+                createNewTodo(item);
+                });
+            }
+            document.body.style.display = "block";
+        })
+        .catch(error => alert(`Get All(GET): ${error}`))
+}
 
 function addTodo(todoObj) {
     axios.post(todoUrl, todoObj)
         .then(() => getAllTodos())
-        .catch(error => alert(`Add Todo(POST): ${error}`))
+        .catch(error => alert(`Add Todo(POST): ${error}`));
 }
 
 function editTodo(todoObj) {
     axios.put(todoUrl + currentId, todoObj)
             .then(() => getAllTodos())
-            .catch(error => alert(`Add Todo(PUT): ${error}`))
+            .catch(error => alert(`Add Todo(PUT): ${error}`));
 }
 
 function deleteTodo(event) {
@@ -170,7 +181,6 @@ function deleteTodo(event) {
 
 function itemChecked(event) {
     const todoId = event.path[1].id;
-    console.log(currentId === todoId)
     event.path[1].classList.toggle("checked-todo");
     updatedObj = {
         "completed": false
@@ -180,7 +190,8 @@ function itemChecked(event) {
     } 
     axios.put(todoUrl + todoId, updatedObj)
         .then(response => response)
-        .catch(error => alert(`Checked-item(PUT): ${error}`))
+        .catch(error => alert(`Checked-item(PUT): ${error}`));
 }
+//#endregion
 
 getAllTodos();
