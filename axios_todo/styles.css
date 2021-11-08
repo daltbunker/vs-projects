@@ -185,6 +185,10 @@ button:hover {
     height: 50px;
 }
 
+#max-char {
+    font-size: 10px;
+}
+
 @media only screen and (max-width: 1000px) {
     .todo-container {
         width: 90%;

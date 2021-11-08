@@ -19,8 +19,8 @@
                     <input type="text" name="title" id="title" required>
                     <label for="price">Price</label>
                     <input type="number" name="price" id="price" required>
-                    <label for="description">Description</label>
-                    <textarea name="description" id="description" cols="30" rows="10" style="resize: none" required></textarea>
+                    <label for="description">Description <span id="max-char"> (50 characters max)</span></label>
+                    <textarea name="description" id="description" cols="30" rows="10" maxlength="50" style="resize: none" required></textarea>
                     <label for="imgUrl">Image Url</label>
                     <input type="text" name="imgUrl" id="imgUrl">
                 </div>
