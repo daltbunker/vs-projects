@@ -47,18 +47,15 @@ function hideForm() {
     clearForm();
 }
 
-function populateForm() {
-    url = todoUrl + currentId
-    axios.get(url)
-        .then(response => {
-            todoObj = response.data;
-            submitBtn.textContent = "SAVE";
-            todoForm.title.value = todoObj.title;
-            todoForm.price.value = todoObj.price;
-            todoForm.description.value =todoObj.description;
-            todoForm.imgUrl.value = todoObj.imgUrl;;
-        })
-        .catch(error => alert(`Populate-form(GET): ${error}`))   
+function populateForm(e) {
+    todoValues = e.path[1].childNodes
+    const [, title, price, description, img] = todoValues;
+    submitBtn.textContent = "SAVE";
+    todoForm.title.value = title.textContent;
+    todoForm.price.value = price.textContent.slice(1,); // slice removes '$'
+    todoForm.description.value = description.textContent;
+    todoForm.imgUrl.value = img.src;
+     
 }
 
 function clearForm() {
@@ -105,7 +102,7 @@ function createTodoElements(todoObj) {
     editBtn.addEventListener("click", (e) => {  
         displayForm();
         currentId = e.path[1].id;
-        populateForm();
+        populateForm(e);
         submitBtn.textContent = "SAVE";
     });
     const deleteBtn = document.createElement("button");
