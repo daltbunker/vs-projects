@@ -1,6 +1,6 @@
 import React from 'react'
 import './Home.css'
-import {Link} from 'react-router-dom'
+import {Link, Outlet} from 'react-router-dom'
 import Electricity from '../forms/Electricity'
 import Flights from '../forms/Flights'
 import Vehicle from '../forms/Vehicle'
@@ -12,11 +12,12 @@ export default function Home() {
         <div className="Home">
             <div className="title">CARBON CALCULATOR</div>
             <div className="estimate-links">
-                <Link to="/carbon-calculator/electricity" element={<Electricity />}>Electricity</Link>
-                <Link to="/carbon-calculator/flight" element={<Flights />}>Flight</Link>
-                <Link to="/carbon-calculator/vehicle" element={<Vehicle />}>Vehicle</Link>
-                <Link to="/carbon-calculator/shipping" element={<Shipping />}>Shipping</Link>
+                <Link to="/calculator/electricity">Electricity</Link>
+                <Link to="/calculator/flights">Flights</Link>
+                <Link to="/calculator/vehicle">Vehicle</Link>
+                <Link to="/calculator/shipping">Shipping</Link>
             </div>
+            <Outlet />
         </div>
     )
 }
