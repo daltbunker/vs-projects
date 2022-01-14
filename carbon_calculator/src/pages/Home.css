@@ -1,0 +1,74 @@
+.Home {
+    background-image: url(https://images.unsplash.com/photo-1527049979667-990f1d0d8e7f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8Y2FyYm9ufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60);
+    background-position: center;
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+}
+
+/* .title {
+    position: absolute;
+    top: 30px;
+    left: 20px;
+    color: white;
+    font-size: 90px;
+    font-weight: bolder;
+    padding: 10px;
+    margin: 10px;
+}
+
+.estimate-links {
+    border-radius: 4px;
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.estimate-links div {
+    margin: 10px;
+}
+
+#flight-link {
+    background-image: url('../images/plane.png');
+    background-color: white;
+    background-position: 45% 60%;
+    background-size: 65%;
+    background-repeat: no-repeat;
+    border-radius: 10%;
+    height: 200px;
+    width: 200px;
+}
+
+#shipping-link {
+    background-image: url('../images/package-box.png');
+    background-color: white;
+    background-position: 50% 50%;
+    background-size: 75%;
+    background-repeat: no-repeat;
+    border-radius: 10%;
+    height: 200px;
+    width: 200px;
+}
+
+#vehicle-link {
+    background-image: url('../images/car.png');
+    background-color: white;
+    background-position: 50% 50%;
+    background-size: 75%;
+    background-repeat: no-repeat;
+    border-radius: 10%;
+    height: 200px;
+    width: 200px;
+}
+
+#electricity-link {
+    background-image: url('../images/plugin.png');
+    background-color: white;
+    background-position: 50% 50%;
+    background-size: 70%;
+    background-repeat: no-repeat;
+    border-radius: 10%;
+    height: 200px;
+    width: 200px;
+} */
