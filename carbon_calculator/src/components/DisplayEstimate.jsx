@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function FormContainer(props) {
+export default function DisplayEstimate() {
     return (
         <div>
-            {props.children}
+            
         </div>
     )
 }
