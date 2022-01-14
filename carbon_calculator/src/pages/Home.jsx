@@ -1,10 +1,7 @@
 import React from 'react'
 import './Home.css'
-import {Link, Outlet} from 'react-router-dom'
-import Electricity from '../forms/Electricity'
-import Flights from '../forms/Flights'
-import Vehicle from '../forms/Vehicle'
-import Shipping from '../forms/Shipping'
+import {Link} from 'react-router-dom'
+
 
 
 export default function Home() {
@@ -17,7 +14,6 @@ export default function Home() {
                 <Link to="/calculator/vehicle">Vehicle</Link>
                 <Link to="/calculator/shipping">Shipping</Link>
             </div>
-            <Outlet />
         </div>
     )
 }

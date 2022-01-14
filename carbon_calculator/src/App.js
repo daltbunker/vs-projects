@@ -9,7 +9,7 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="calculator" element={<Calculator />}>
+        <Route path="calculator/*" element={<Calculator />}>
           <Route path=":estimateType" element={<Calculator />} />
         </Route>
         <Route

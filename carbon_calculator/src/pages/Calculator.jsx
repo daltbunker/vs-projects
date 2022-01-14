@@ -3,6 +3,10 @@ import {Routes, Route, useParams} from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import DisplayEstimate from '../components/DisplayEstimate'
 import FormContainer from '../components/FormContainer'
+import Electricity from '../forms/Electricity'
+import Flights from '../forms/Flights'
+import Vehicle from '../forms/Vehicle'
+import Shipping from '../forms/Shipping'
 
 export default function Calculator() {
     const {estimateType} = useParams()
@@ -17,7 +21,10 @@ export default function Calculator() {
             <Navbar />
             <FormContainer>
                 <Routes>
-                    <Route />
+                    <Route path="/electricity" element={<Electricity />} />
+                    <Route path="/flights" element={<Flights />} />
+                    <Route path="/vehicle" element={<Vehicle />} />
+                    <Route path="/shipping" element={<Shipping />} />
                 </Routes>
             </FormContainer>
             <DisplayEstimate />
