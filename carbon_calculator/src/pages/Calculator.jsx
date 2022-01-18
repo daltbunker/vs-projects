@@ -14,7 +14,7 @@ export default function Calculator() {
     return (
         <div className="Calculator">
             <div className="header">
-                <div className="title">Carbon Calculator</div>
+                <div className="calculator-title">Carbon Calculator</div>
                 <button>SAVED ESTIMATES</button>
             </div>
             <div className="subtitle">{estimateType}</div>

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
 .Home {
     background-image: url(https://images.unsplash.com/photo-1527049979667-990f1d0d8e7f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8Y2FyYm9ufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60);
     background-position: center;
@@ -6,69 +8,75 @@
     display: flex;
 }
 
-/* .title {
+.title {
     position: absolute;
-    top: 30px;
-    left: 20px;
-    color: white;
-    font-size: 90px;
-    font-weight: bolder;
-    padding: 10px;
     margin: 10px;
+    left: 30px;
+    color: white;
+    font-family: 'Nunito';
+    font-weight: bold;
+    font-size: 50px;
 }
 
 .estimate-links {
-    border-radius: 4px;
     display: flex;
     width: 100%;
-    flex-wrap: wrap;
+    align-items: center;
     justify-content: space-evenly;
 }
 
-.estimate-links div {
-    margin: 10px;
-}
-
-#flight-link {
-    background-image: url('../images/plane.png');
+.estimate-link {
     background-color: white;
-    background-position: 45% 60%;
-    background-size: 65%;
+    background-position: 50% 70%;
     background-repeat: no-repeat;
-    border-radius: 10%;
+    text-decoration: none;
+    border-radius: 20%;
     height: 200px;
     width: 200px;
 }
 
-#shipping-link {
-    background-image: url('../images/package-box.png');
-    background-color: white;
-    background-position: 50% 50%;
-    background-size: 75%;
-    background-repeat: no-repeat;
-    border-radius: 10%;
-    height: 200px;
-    width: 200px;
-}
-
-#vehicle-link {
-    background-image: url('../images/car.png');
-    background-color: white;
-    background-position: 50% 50%;
-    background-size: 75%;
-    background-repeat: no-repeat;
-    border-radius: 10%;
-    height: 200px;
-    width: 200px;
-}
-
-#electricity-link {
+.electricity-link {
     background-image: url('../images/plugin.png');
-    background-color: white;
-    background-position: 50% 50%;
     background-size: 70%;
-    background-repeat: no-repeat;
-    border-radius: 10%;
-    height: 200px;
-    width: 200px;
-} */
+}
+
+.flights-link {
+    background-image: url('../images/plane.png');
+    background-size: 65%;
+}
+
+.vehicle-link {
+    background-image: url('../images/car.png');
+    background-size: 75%;
+}
+
+.shipping-link {
+    background-image: url('../images/package-box.png');
+    background-size: 75%;
+}
+
+.estimate-link:hover::after {
+    display: block;
+    text-align: center;
+    font-weight: bold;
+    font-family: 'Nunito';
+    font-size: 16px;
+    color: black;
+    margin-top: 12px;
+}
+
+.electricity-link:hover::after {
+    content: "ELECTRICITY";
+}
+
+.flights-link:hover::after {
+    content: "FLIGHTS";
+}
+
+.vehicle-link:hover::after {
+    content: "VEHICLE";
+}
+
+.shipping-link:hover::after {
+    content: "SHIPPING";
+}
