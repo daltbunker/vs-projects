@@ -1,5 +1,6 @@
-import React from 'react'
-import {Routes, Route, useParams} from 'react-router-dom'
+import React, {useState} from 'react'
+import {Routes, Route, Link} from 'react-router-dom'
+import './Calculator.css'
 import Navbar from '../components/Navbar'
 import DisplayEstimate from '../components/DisplayEstimate'
 import FormContainer from '../components/FormContainer'
@@ -9,15 +10,30 @@ import Vehicle from '../forms/Vehicle'
 import Shipping from '../forms/Shipping'
 
 export default function Calculator() {
-    const {estimateType} = useParams()
+    const [labelVisble, setLabelVisible] = useState(false)
+    let labelTimer;
+
+    function displayLabel(){
+        if (!labelTimer) {
+            labelTimer = setTimeout(() => setLabelVisible(true), 600)
+        }
+    }
+
+    function hideLabel() {
+        setLabelVisible(false)
+        if (labelTimer) {
+            clearTimeout(labelTimer)
+            labelTimer = null
+        }
+    }
 
     return (
         <div className="Calculator">
             <div className="header">
-                <div className="calculator-title">Carbon Calculator</div>
-                <button>SAVED ESTIMATES</button>
+                <Link className="calculator-title" to="/">Carbon Calculator</Link>
+                <button onMouseOver={() => displayLabel()} onMouseLeave={() => hideLabel()} className="estimates-btn"></button>
+                <div className="estimates-label" style={{display: labelVisble ? "block" : "none"}}>saved estimates</div>
             </div>
-            <div className="subtitle">{estimateType}</div>
             <Navbar />
             <FormContainer>
                 <Routes>

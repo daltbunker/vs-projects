@@ -1,52 +1,49 @@
 import React from 'react'
 import {NavLink} from 'react-router-dom'
+import './Navbar.css'
 
 export default function Navbar() {
     return (
-        <div className="NavBar">
+        <div className="Navbar">
             <NavLink 
+                className="nav-link"
                 to="/calculator/electricity" 
                 style={({ isActive }) => {
                     return {
-                        display: "block",
-                        margin: "1rem 0",
-                        color: isActive ? "red" : ""
+                        borderBottom: isActive ? "2px solid black" : "none"
                     };
                 }}
             >
                 Electricity
             </NavLink>
             <NavLink 
+                className="nav-link"
                 to="/calculator/flights" 
                 style={({ isActive }) => {
                     return {
-                        display: "block",
-                        margin: "1rem 0",
-                        color: isActive ? "red" : ""
+                        borderBottom: isActive ? "2px solid black" : "none"
                     };
                     }}
             >
                 Flights
             </NavLink>
             <NavLink 
+                className="nav-link"
                 to="/calculator/vehicle" 
                 style={({ isActive }) => {
                     return {
-                        display: "block",
-                        margin: "1rem 0",
-                        color: isActive ? "red" : ""
+                        borderBottom: isActive ? "2px solid black" : "none"
                     };
                     }}
             >
                 Vehicle
             </NavLink>
             <NavLink 
+                className="nav-link"
                 to="/calculator/shipping" 
                 style={({ isActive }) => {
                     return {
-                        display: "block",
-                        margin: "1rem 0",
-                        color: isActive ? "red" : ""
+                        borderBottom: isActive ? "2px solid black" : "none"
                     };
                 }}
             >
