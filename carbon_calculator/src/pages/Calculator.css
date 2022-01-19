@@ -45,4 +45,19 @@
     border-radius: 1px;
 }
 
+.route-title {
+    position: relative;
+    top: 50px;
+    text-align: center;
+    font-size: 35px;
+    font-family: 'Nunito';
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.route-container {
+    display: flex;
+    justify-content: center;
+}
+
 
