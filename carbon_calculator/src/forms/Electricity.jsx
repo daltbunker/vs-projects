@@ -1,29 +1,28 @@
 import React, {useState} from 'react'
 import './Forms.css'
+import axios from 'axios'
 
 
 export default function Electricity() {
 
     const defaultFormInput = {
-        unit: "mwh",
-        value: 0,
+        type: "electricity",
+        electricity_unit: "mwh",
+        electricity_value: 100,
         country: "United States",
-        state: ""
+        state: "",
     }
     const {countries, states, provinces} = require('../locationData.json')
     const [formInput, setFormInput] = useState(defaultFormInput)
 
     function handleInputChange(e) {
         const {name, value} = e.target
-        if (value === "Canada") {
-            setFormInput(prevFormInput => {
-                return {
-                    ...prevFormInput,
-                    [name]: value,
-                    state: ""
-                }
-            })
-        } else if (value === "United States") {
+        let num = 0
+
+        if (name === "electricity_value" && value !== "") {
+            num = parseFloat(value)
+        }
+        if (name === "country") {
             setFormInput(prevFormInput => {
                 return {
                     ...prevFormInput,
@@ -35,21 +34,32 @@ export default function Electricity() {
             setFormInput(prevFormInput => {
                 return {
                     ...prevFormInput,
-                    [name]: value
+                    [name]: name === "electricity_value" ? num : value
                 }
             })
         }
-    }
+}
 
     function handleSubmit(e) {
         e.preventDefault()
-        console.log(formInput)
-        if (formInput.value <= 0) {
+        if (formInput.electricity_value <= 0) {
             alert("Value must be greater than 0")
         } else if (["United States", "Canada"].includes(formInput.country) && formInput.state.length === 0) {
             alert("State is Required")
         } else {
-            
+            const data = {
+                ...formInput,
+                country: countries[formInput.country]
+            }
+            const config = {
+                headers: {
+                    "Authorization": "Bearer ucJMUPyufNail0S8oSAnA",
+                    "Content-Type": "application/json"
+                }
+            }
+            axios
+                .post("https://www.carboninterface.com/api/v1/estimates", data, config)
+                .then(resp => console.log(resp.data.data.attributes))
         }
     }
 
@@ -59,14 +69,14 @@ export default function Electricity() {
             <form onSubmit={(e) => handleSubmit(e)}>
                 <div className="input-container">
                     <label>Unit: </label>
-                    <select name="unit" onChange={handleInputChange}>
+                    <select name="electricity_unit" onChange={handleInputChange}>
                         <option value="mwh">mwh</option>
                         <option value="kwh">kwh</option>
                     </select>
                 </div>
                 <div className="input-container">
                     <label>Value: </label>
-                    <input type="number" name="value" value={formInput.value} onChange={handleInputChange} />
+                    <input type="number" name="electricity_value" value={formInput.electricity_value} onChange={handleInputChange} />
                 </div>
                 <div className="input-container">
                     <label>Country: </label>
