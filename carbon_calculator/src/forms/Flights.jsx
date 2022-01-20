@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import './Forms.css'
 import './Flights.css'
 import axios from 'axios'
+import config from '../config'
 
 export default function Flights() {
 
@@ -86,8 +87,25 @@ export default function Flights() {
         setSearchResults([])
     }
 
-    function handleSubmit() {
+    function handleSubmit(e) {
+        e.preventDefault()
+        if (validateInput()) {
+            
+            axios
+                .post("https://www.carboninterface.com/api/v1/estimates", formInput, config)
+                .then(resp => console.log(resp.data.data.attributes))
+        }
+    }
 
+    function validateInput() {
+        if (formInput.passengers < 1) {
+            alert("At least 1 passenger required")
+            return false
+        } else if (formInput.legs[0].departure_airport.length !== 3 || formInput.legs[0].destination_airport.length !== 3) {
+            alert("Airpots must be 3 character IATA code")
+            return false
+        } 
+        return true
     }
 
 

@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import './Forms.css'
 import axios from 'axios'
+import config from '../config'
 
 
 export default function Electricity() {
@@ -42,25 +43,26 @@ export default function Electricity() {
 
     function handleSubmit(e) {
         e.preventDefault()
-        if (formInput.electricity_value <= 0) {
-            alert("Value must be greater than 0")
-        } else if (["United States", "Canada"].includes(formInput.country) && formInput.state.length === 0) {
-            alert("State is Required")
-        } else {
+        if (validateInput()) {
             const data = {
                 ...formInput,
                 country: countries[formInput.country]
-            }
-            const config = {
-                headers: {
-                    "Authorization": "Bearer ucJMUPyufNail0S8oSAnA",
-                    "Content-Type": "application/json"
-                }
             }
             axios
                 .post("https://www.carboninterface.com/api/v1/estimates", data, config)
                 .then(resp => console.log(resp.data.data.attributes))
         }
+    }
+
+    function validateInput() {
+        if (formInput.electricity_value <= 0) {
+            alert("Value must be greater than 0")
+            return false
+        } else if (["United States", "Canada"].includes(formInput.country) && formInput.state.length === 0) {
+            alert("State is Required")
+            return false
+        }
+        return true
     }
 
 
