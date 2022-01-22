@@ -102,7 +102,7 @@ export default function Flights() {
             alert("At least 1 passenger required")
             return false
         } else if (formInput.legs[0].departure_airport.length !== 3 || formInput.legs[0].destination_airport.length !== 3) {
-            alert("Airpots must be 3 character IATA code")
+            alert("Airports must be 3 character IATA code")
             return false
         } 
         return true
@@ -112,60 +112,60 @@ export default function Flights() {
 
     return (
         <div className="form-container">
-        <form onSubmit={(e) => handleSubmit(e)} autoComplete="off">
-            <div className="input-container">
-                <label>Passengers: </label>
-                <input 
-                    type="number" 
-                    name="passengers" 
-                    value={formInput.passengers} 
-                    onChange={handleValueChange} 
-                />
-            </div>
-            <div className="input-container">
-                <label>Departure: </label>
-                <input 
-                    type="text" 
-                    name="departure_airport" 
-                    value={formInput.legs[0].departure_airport} 
-                    onChange={handleAirportChange} 
-                    onClick={() => handleAirportInputSelect(true)}
-                />
-                <div className="search-results" style={{display: searchResults.length > 0 && departSearch ? "block" : "none"}}>
-                    {searchResults.map(result => 
-                        (  
-                            <div 
-                                key={result} 
-                                className="search-result" 
-                                onClick={() => handleSearchResultSelect(result, "departure_airport")}>{result}
-                            </div>
-                        )
-                    )}
+            <form onSubmit={(e) => handleSubmit(e)} autoComplete="off">
+                <div className="input-container">
+                    <label>Passengers: </label>
+                    <input 
+                        type="number" 
+                        name="passengers" 
+                        value={formInput.passengers} 
+                        onChange={handleValueChange} 
+                    />
                 </div>
-            </div>
-            <div className="input-container">
-                <label>Destination: </label>
-                <input 
-                    type="text" 
-                    name="destination_airport" 
-                    value={formInput.legs[0].destination_airport} 
-                    onChange={handleAirportChange} 
-                    onClick={() => handleAirportInputSelect(false)}
-                />
-                <div className="search-results" style={{display: searchResults.length > 0 && !departSearch ? "block" : "none"}}>
-                    {searchResults.map(result => 
-                        (  
-                            <div 
-                                key={result} 
-                                className="search-result" 
-                                onClick={() => handleSearchResultSelect(result, "destination_airport")}>{result}
-                            </div>
-                        )
-                    )}
+                <div className="input-container">
+                    <label>Departure: </label>
+                    <input 
+                        type="text" 
+                        name="departure_airport" 
+                        value={formInput.legs[0].departure_airport} 
+                        onChange={handleAirportChange} 
+                        onClick={() => handleAirportInputSelect(true)}
+                    />
+                    <div className="search-results" style={{display: searchResults.length > 0 && departSearch ? "block" : "none"}}>
+                        {searchResults.map(result => 
+                            (  
+                                <div 
+                                    key={result} 
+                                    className="search-result" 
+                                    onClick={() => handleSearchResultSelect(result, "departure_airport")}>{result}
+                                </div>
+                            )
+                        )}
+                    </div>
                 </div>
-            </div>
-            <button className="form-submit">Get Estimate</button>
-        </form>
-    </div>
+                <div className="input-container">
+                    <label>Destination: </label>
+                    <input 
+                        type="text" 
+                        name="destination_airport" 
+                        value={formInput.legs[0].destination_airport} 
+                        onChange={handleAirportChange} 
+                        onClick={() => handleAirportInputSelect(false)}
+                    />
+                    <div className="search-results" style={{display: searchResults.length > 0 && !departSearch ? "block" : "none"}}>
+                        {searchResults.map(result => 
+                            (  
+                                <div 
+                                    key={result} 
+                                    className="search-result" 
+                                    onClick={() => handleSearchResultSelect(result, "destination_airport")}>{result}
+                                </div>
+                            )
+                        )}
+                    </div>
+                </div>
+                <button className="form-submit">Get Estimate</button>
+            </form>
+        </div>
     )
 }
