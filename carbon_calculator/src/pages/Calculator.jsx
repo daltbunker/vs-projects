@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import {Routes, Route, Link, useParams} from 'react-router-dom'
 import './Calculator.css'
 import Navbar from '../components/Navbar'
@@ -7,11 +7,18 @@ import Electricity from '../forms/Electricity'
 import Flights from '../forms/Flights'
 import Vehicle from '../forms/Vehicle'
 import Shipping from '../forms/Shipping'
+import { EstimatesContext } from '../components/EstimatesContext'
 
 export default function Calculator() {
+
     const [labelVisble, setLabelVisible] = useState(false)
     const {estimateType} = useParams()
     let labelTimer;
+    const {clearCarbonEstimate} = useContext(EstimatesContext)
+
+    useEffect(() => {
+        clearCarbonEstimate()
+    }, [estimateType])
 
     function displayLabel(){
         if (!labelTimer) {
@@ -31,20 +38,20 @@ export default function Calculator() {
         <div className="Calculator">
             <div className="header">
                 <Link className="calculator-title" to="/">Carbon Calculator</Link>
-                <button onMouseOver={() => displayLabel()} onMouseLeave={() => hideLabel()} className="estimates-btn"></button>
+                <Link onMouseOver={() => displayLabel()} onMouseLeave={() => hideLabel()} className="estimates-btn" to="/estimates"></Link>
                 <div className="estimates-label" style={{display: labelVisble ? "block" : "none"}}>saved estimates</div>
             </div>
             <div className="route-title">{estimateType}</div>
             <Navbar />
             <div className="route-container">
                 <Routes>
-                    <Route path="/electricity" element={<Electricity />} />
-                    <Route path="/flights" element={<Flights />} />
-                    <Route path="/vehicle" element={<Vehicle />} />
-                    <Route path="/shipping" element={<Shipping />} />
+                    <Route path="/electricity" element={<Electricity/>} />
+                    <Route path="/flights" element={<Flights/>} />
+                    <Route path="/vehicle" element={<Vehicle/>} />
+                    <Route path="/shipping" element={<Shipping/>} />
                 </Routes>
             </div>
-            <DisplayEstimate />
+            <DisplayEstimate/>
         </div>
     )
 }

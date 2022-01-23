@@ -1,6 +1,7 @@
 import axios from 'axios'
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import config from '../config'
+import { EstimatesContext } from '../components/EstimatesContext'
 
 export default function Shipping() {
 
@@ -13,6 +14,7 @@ export default function Shipping() {
         transport_method: "ship"
       }
     const [formInput, setFormInput] = useState(defaultFormInput)
+    const {addEstimate} = useContext(EstimatesContext)
 
     function handleChange(e) {
         let {name, value} = e.target
@@ -42,10 +44,10 @@ export default function Shipping() {
         if (validateInput()) {
             axios
                 .post("https://www.carboninterface.com/api/v1/estimates", formInput, config)
-                .then(resp => console.log(resp.data.data.attributes))
-                .catch(error => console.log(error))
-                
-            setFormInput(defaultFormInput)
+                .then(resp => {
+                    const carbonEstimateObj = resp.data.data.attributes
+                    addEstimate(carbonEstimateObj)
+                })
         }
 
     }

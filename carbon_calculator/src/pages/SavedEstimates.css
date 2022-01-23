@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+
+.SavedEstimates {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.estimates-title {
+    position: absolute;
+    top: 45px;
+    font-family: 'Nunito';
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.calculator-link {
+    position: absolute;
+    top: 10px;
+    left: 60px;
+    font-family: 'Nunito';
+    font-weight: bold;
+    color: black;
+    text-decoration: none;
+    padding: 5px;
+}

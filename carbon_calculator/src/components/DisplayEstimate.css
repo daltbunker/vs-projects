@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+.DisplayEstimate {
+    position: absolute;
+    top: 100px;
+    right: 100px;
+    display: flex;
+    flex-direction: column;
+}
+
+.estimate-title {
+    font-family: 'Nunito';
+    font-size: 27px;
+    margin-bottom: 20px;
+}
+
+.estimate-data {
+    margin: 10px;
+    margin-left: 20px;
+}
+
+.estimate-data span {
+    font-weight: bold;
+}

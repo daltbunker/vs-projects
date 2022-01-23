@@ -1,7 +1,8 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import axios from 'axios'
 import './Forms.css'
 import config from '../config'
+import { EstimatesContext } from '../components/EstimatesContext'
 
 export default function Vehicle() {
 
@@ -15,6 +16,7 @@ export default function Vehicle() {
             year: 1990
         },
       }
+    const {addEstimate} = useContext(EstimatesContext)
     const [formInput, setFormInput] = useState(defaultFormInput)
     const [vehicles, setVehicles] = useState({
         makes: [],

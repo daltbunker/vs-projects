@@ -1,8 +1,9 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import './Forms.css'
 import './Flights.css'
 import axios from 'axios'
 import config from '../config'
+import { EstimatesContext } from '../components/EstimatesContext'
 
 export default function Flights() {
 
@@ -13,6 +14,7 @@ export default function Flights() {
           {departure_airport: "", destination_airport: ""},
         ]
     }
+    const {addEstimate} = useContext(EstimatesContext)
     const [formInput, setFormInput] = useState(defaultFormInput)
     const [searchResults, setSearchResults] = useState([])
     const [departSearch, setDepartSearch] = useState(true)
@@ -93,7 +95,10 @@ export default function Flights() {
             
             axios
                 .post("https://www.carboninterface.com/api/v1/estimates", formInput, config)
-                .then(resp => console.log(resp.data.data.attributes))
+                .then(resp => {
+                    const carbonEstimateObj = resp.data.data.attributes
+                    addEstimate(carbonEstimateObj)
+                })
         }
     }
 

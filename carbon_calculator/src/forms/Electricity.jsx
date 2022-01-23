@@ -1,7 +1,8 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import './Forms.css'
 import axios from 'axios'
 import config from '../config'
+import { EstimatesContext } from '../components/EstimatesContext'
 
 
 export default function Electricity() {
@@ -15,6 +16,7 @@ export default function Electricity() {
     }
     const {countries, states, provinces} = require('../locationData.json')
     const [formInput, setFormInput] = useState(defaultFormInput)
+    const {addEstimate} = useContext(EstimatesContext)
 
     function handleInputChange(e) {
         const {name, value} = e.target
@@ -50,7 +52,10 @@ export default function Electricity() {
             }
             axios
                 .post("https://www.carboninterface.com/api/v1/estimates", data, config)
-                .then(resp => console.log(resp.data.data.attributes))
+                .then(resp => {
+                    const carbonEstimateObj = resp.data.data.attributes
+                    addEstimate(carbonEstimateObj)
+                })
         }
     }
 
