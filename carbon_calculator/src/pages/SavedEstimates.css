@@ -27,6 +27,8 @@
 }
 
 .estimates {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     position: absolute;
     top: 100px;
 }

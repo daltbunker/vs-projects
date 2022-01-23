@@ -54,7 +54,7 @@ export default function Electricity() {
                 .post("https://www.carboninterface.com/api/v1/estimates", data, config)
                 .then(resp => {
                     const carbonEstimateObj = resp.data.data.attributes
-                    addEstimate(carbonEstimateObj)
+                    addEstimate({type: "electricity", ...carbonEstimateObj})
                 })
         }
     }

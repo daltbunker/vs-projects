@@ -1,11 +1,24 @@
 .EstimateCard {
     display: flex;
     flex-direction: column;
+    align-items: center;
     border: 1px solid black;
-    width: 200px;
+    padding: 10px;
+    width: 300px;
     margin: 20px;
+    border-radius: 4px;
 }
 
-.estimate-data {
-    /* border: 1px solid black; */
+.estimate-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 16px;
+}
+
+.header-title {
+    text-transform: capitalize;
+    font-size: 23px;
+    font-weight: bold;
+    margin-bottom: 5px;
 }

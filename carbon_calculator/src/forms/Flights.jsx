@@ -97,7 +97,7 @@ export default function Flights() {
                 .post("https://www.carboninterface.com/api/v1/estimates", formInput, config)
                 .then(resp => {
                     const carbonEstimateObj = resp.data.data.attributes
-                    addEstimate(carbonEstimateObj)
+                    addEstimate({type: "flights", ...carbonEstimateObj})
                 })
         }
     }
