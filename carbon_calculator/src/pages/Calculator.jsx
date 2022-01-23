@@ -45,9 +45,8 @@ export default function Calculator() {
                     style={{visibility: allEstimates.length > 0 ? "visible" : "hidden"}}
                     to="/estimates"
                 >
-
                 </Link>
-                <div className="estimates-label" style={{display: labelVisble ? "block" : "none"}}>saved estimates</div>
+                <div className="estimates-label" style={{display: labelVisble ? "block" : "none"}}>all estimates</div>
             </div>
             <div className="route-title">{estimateType}</div>
             <Navbar />
