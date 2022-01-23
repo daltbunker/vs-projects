@@ -12,7 +12,7 @@ function Vehicle() {
         distance_value: 100,
         vehicle_make: "",
         vehicle_model: "",
-        vehicle_year: 1990
+        vehicle_year: ""
     }
     const defaultVehicle = {
         makes: [],
@@ -64,19 +64,11 @@ function Vehicle() {
                     const uniqueModels = [...new Set(vehicle.models.map(model => model.name))]
                     results = uniqueModels.filter(model => searchParam.test(model))
                     break
-                // case "vehicle_year":
-                //     results = vehicle.years
-                //     break
                 default:
                     break
             }
             setSearchResults(results)
         }
-    }
-
-    function handleInputSelect(inputName) {
-        setSelectedInput(inputName)
-        setSearchResults([])
     }
 
     function getModels(id) {
@@ -94,16 +86,19 @@ function Vehicle() {
     }
 
     function getYears(name) {
+        const modelYears = []
         const allYears = vehicle.models.filter(model => {
-            if (model.name === name) {
+            if (model.name === name && !modelYears.includes(model.year)) {
+                modelYears.push(model.year)
                 return model.year
             }
             return null
         })
+
         setVehicle(prevVehicle => {
             return {
                 ...prevVehicle,
-                years: allYears
+                years: [...allYears.sort((a, b) => a.year - b.year)]
             }
         })
     }
@@ -190,6 +185,7 @@ function Vehicle() {
                             onClick={() => {
                                 handleSearchResultSelect(name, "vehicle_model")
                                 getYears(name)
+                                setSelectedInput("vehicle_year")
                             }}
                         >
                             {name}
@@ -205,25 +201,12 @@ function Vehicle() {
                     onChange={(e) => {
                         handleInputChange(e)
                     }}
-                    onClick={() => setSelectedInput("vehicle_year")}
                     disabled={vehicle.years.length > 0 ? false : true}
                 >
-                    <option value=""></option>
+                    {selectedInput === "vehicle_year" && vehicle.years.map((make, i) => {
+                        return <option key={i} value={make.year}>{make.year}</option>
+                    })}
                 </select>
-                <div 
-                    className="search-results" 
-                    style={{display: selectedInput === "vehicle_year" ? "block" : "none"}}
-                >
-                    {selectedInput === "vehicle_year" && searchResults.map(result => (  
-                        <div 
-                            key={result} 
-                            className="search-result"
-                            onClick={() => handleSearchResultSelect(result)}
-                        >
-                            {result}
-                        </div>
-                    ))}
-                </div>
             </div>
             <button className="form-submit">Get Estimate</button>
             </form>
