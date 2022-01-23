@@ -118,7 +118,7 @@ export default function Flights() {
                     <input 
                         type="number" 
                         name="passengers" 
-                        value={formInput.passengers} 
+                        value={formInput.passengers}
                         onChange={handleValueChange} 
                     />
                 </div>

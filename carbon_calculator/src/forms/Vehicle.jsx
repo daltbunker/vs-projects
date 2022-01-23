@@ -11,23 +11,37 @@ export default function Vehicle() {
         distance_value: 100,
         vehicle: {
             vehicle_make: "",
-            vehicle_model: ""
+            vehicle_model: "",
+            year: 1990
         },
       }
-      const [formInput, setFormInput] = useState(defaultFormInput)
-    const [vehicleMakes, setVehicleMakes] = useState([])
+    const [formInput, setFormInput] = useState(defaultFormInput)
+    const [vehicles, setVehicles] = useState({
+        makes: [],
+        makeId: "",
+        models: [],
+        uniqueModels: [],
+        years: [],
+        modelId: ""
+    })
     const [searchResults, setSearchResults] = useState([])
+    const [makeSearch, setMakeSearch] = useState(true)
 
     useEffect(() => {
         axios
             .get("https://www.carboninterface.com/api/v1/vehicle_makes", config)
             .then(resp => {
                 const allMakes = resp.data.map(make => ({name: make.data.attributes.name, id: make.data.id}))
-                setVehicleMakes(allMakes)
+                setVehicles(prevVehicles => {
+                    return {
+                        ...prevVehicles,
+                        makes: allMakes
+                    }
+                })
             })
     }, [])
 
-    function handleInputChange(e) {
+    function handleDistanceChange(e) {
         const {name, value} = e.target
         let num = 0
 
@@ -43,7 +57,7 @@ export default function Vehicle() {
         })
     }
     
-    function handleVehicleChange(e) {
+    function handleVehicleInputChange(e) {
         let {name, value} = e.target
         
         // capitalize value
@@ -51,20 +65,29 @@ export default function Vehicle() {
             value = value[0].toUpperCase() + value.slice(1,)
         }
         
-        filterSearchResults(value)
+        filterSearchResults(name, value)
         setFormInput(prevFormInput => {
             return {
                 ...prevFormInput,
-                [name]: value
+                vehicle: {
+                    ...prevFormInput.vehicle,
+                    [name]: value
+                }
             }
         })
     }
 
-    function filterSearchResults(value) {
+    function filterSearchResults(name, value) {
         if (value.length > 0) {
             const searchParam = new RegExp(value)
-            const results = vehicleMakes.filter(make => searchParam.test(make.name))
-            setSearchResults(results)
+            if (name === "vehicle_make") {
+                const results = vehicles.makes.filter(vehicle => searchParam.test(vehicle.name))
+                setSearchResults(results)
+            } else {
+                const results = vehicles.uniqueModels.filter(vehicle => searchParam.test(vehicle))
+                setSearchResults(results)
+                console.log(results)
+            }
         } else {
             setSearchResults([])
         }
@@ -73,9 +96,21 @@ export default function Vehicle() {
     function getModels(id) {
         axios
             .get(`https://www.carboninterface.com/api/v1/vehicle_makes/${id}/vehicle_models`, config)
-            .then(resp => console.log(resp.data))
+            .then(resp => {
+                const allModels = resp.data.map(model => ({name: model.data.attributes.name, year: model.data.attributes.year, id: model.data.id}))
+                setVehicles(prevVehicles => {
+                    return {
+                        ...prevVehicles,
+                        models: allModels,
+                        uniqueModels: [...new Set(allModels.map(model => model.name))]
+                    }
+                })
+            })
+    }
 
-
+    function handleVehicleInputSelect(isVehicleMake) {
+        setMakeSearch(isVehicleMake)
+        setSearchResults([])
     }
 
     function handleSearchResultSelect(vehicleMake) {
@@ -101,19 +136,25 @@ export default function Vehicle() {
             <form onSubmit={(e) => handleSubmit(e)} autoComplete="off">
             <div className="input-container">
                     <label>Unit: </label>
-                    <select name="distance_unit" onChange={handleInputChange}>
+                    <select name="distance_unit" onChange={handleDistanceChange}>
                         <option value="mi">mi</option>
                         <option value="km">km</option>
                     </select>
                 </div>
                 <div className="input-container">
                     <label>Distance: </label>
-                    <input type="number" name="distance_value" value={formInput.distance_value} onChange={handleInputChange} />
+                    <input type="number" name="distance_value" value={formInput.distance_value} onChange={handleDistanceChange} />
                 </div>
                 <div className="input-container">
                     <label>Make: </label>
-                    <input type="text" name="vehicle_make_id" value={formInput.vehicle.vehicle_make} onChange={handleVehicleChange} />
-                    <div className="search-results" style={{display: searchResults.length > 0 ? "block" : "none"}}>
+                    <input 
+                        type="text" 
+                        name="vehicle_make" 
+                        value={formInput.vehicle.vehicle_make} 
+                        onChange={handleVehicleInputChange} 
+                        onClick={() => handleVehicleInputSelect(true)}
+                    />
+                    <div className="search-results" style={{display: searchResults.length > 0 && makeSearch ? "block" : "none"}}>
                         {searchResults.map(result => (  
                             <div 
                                 key={result.id} 
@@ -127,15 +168,21 @@ export default function Vehicle() {
                 </div>
                 <div className="input-container">
                     <label>Model: </label>
-                    <input type="text" name="vehicle_model_id" value={formInput.vehicle.vehicle_model} onChange={handleVehicleChange} />
-                    <div className="search-results" style={{display: searchResults.length > 0 ? "block" : "none"}}>
-                        {searchResults.map(result => (  
+                    <input 
+                        type="text" 
+                        name="vehicle_model" 
+                        value={formInput.vehicle.vehicle_model} 
+                        onChange={handleVehicleInputChange} 
+                        onClick={() => handleVehicleInputSelect(false)}
+                    />
+                    <div className="search-results" style={{display: searchResults.length > 0 && !makeSearch ? "block" : "none"}}>
+                        {searchResults.length > 0 && !makeSearch && searchResults.map(result => (  
                             <div 
-                                key={result.id} 
+                                key={result} 
                                 className="search-result"
                                 onClick={() => handleSearchResultSelect(result)}
                             >
-                                {result.name}
+                                {result}
                             </div>
                         ))}
                     </div>
