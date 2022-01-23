@@ -14,7 +14,7 @@ export default function Calculator() {
     const [labelVisble, setLabelVisible] = useState(false)
     const {estimateType} = useParams()
     let labelTimer;
-    const {clearCarbonEstimate} = useContext(EstimatesContext)
+    const {clearCarbonEstimate, allEstimates} = useContext(EstimatesContext)
 
     useEffect(() => {
         clearCarbonEstimate()
@@ -38,7 +38,15 @@ export default function Calculator() {
         <div className="Calculator">
             <div className="header">
                 <Link className="calculator-title" to="/">Carbon Calculator</Link>
-                <Link onMouseOver={() => displayLabel()} onMouseLeave={() => hideLabel()} className="estimates-btn" to="/estimates"></Link>
+                <Link 
+                    className="estimates-btn" 
+                    onMouseOver={() => displayLabel()} 
+                    onMouseLeave={() => hideLabel()} 
+                    style={{visibility: allEstimates.length > 0 ? "visible" : "hidden"}}
+                    to="/estimates"
+                >
+
+                </Link>
                 <div className="estimates-label" style={{display: labelVisble ? "block" : "none"}}>saved estimates</div>
             </div>
             <div className="route-title">{estimateType}</div>

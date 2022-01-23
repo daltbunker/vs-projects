@@ -25,3 +25,8 @@
     text-decoration: none;
     padding: 5px;
 }
+
+.estimates {
+    position: absolute;
+    top: 100px;
+}
