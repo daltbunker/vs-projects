@@ -12,7 +12,8 @@ function Vehicle() {
         distance_value: 100,
         vehicle_make: "",
         vehicle_model: "",
-        vehicle_year: ""
+        vehicle_year: "",
+        vehicle_model_id: ""
     }
     const defaultVehicle = {
         makes: [],
@@ -42,13 +43,24 @@ function Vehicle() {
         if (/vehicle/.test(name)) {
             value = value.length > 0 ? value[0].toUpperCase() + value.slice(1,) : ""
         }
+        if (name === "vehicle_year") {
+            const modelId = e.target.selectedOptions[0].id
+            setFormInput(prevFormInput => {
+                return {
+                    ...prevFormInput,
+                    vehicle_model_id: modelId,
+                    [name]: value
+                }
+            })
+        } else {
+            setFormInput(prevFormInput => {
+                return {
+                    ...prevFormInput,
+                    [name]: value
+                }
+            })
+        }
 
-        setFormInput(prevFormInput => {
-            return {
-                ...prevFormInput,
-                [name]: value
-            }
-        })
     }
 
     function filterSearchResults(e) {
@@ -113,8 +125,29 @@ function Vehicle() {
         })
     }
 
-    function handleSubmit(e) {
+    function setVehicleModelId(id) {
+        setFormInput(prevFormInput => {
+            return {
+                ...prevFormInput,
+                vehicle_model_id: id
+            }
+        })
+    }
 
+    function handleSubmit(e) {
+        e.preventDefault()
+        const vehicleData = {
+            type: formInput.type,
+            distance_unit: formInput.distance_unit,
+            distance_value: formInput.distance_value,
+            vehicle_model_id: formInput.vehicle_model_id
+        }
+        axios
+                .post("https://www.carboninterface.com/api/v1/estimates", vehicleData, config)
+                .then(resp => {
+                    const carbonEstimateObj = resp.data.data.attributes
+                    addEstimate({type: "vehicle", ...carbonEstimateObj})
+                })
     }
 
     return (
@@ -203,8 +236,8 @@ function Vehicle() {
                     }}
                     disabled={vehicle.years.length > 0 ? false : true}
                 >
-                    {selectedInput === "vehicle_year" && vehicle.years.map((make, i) => {
-                        return <option key={i} value={make.year}>{make.year}</option>
+                    {selectedInput === "vehicle_year" && vehicle.years.map(make => {
+                        return <option key={make.id} id={make.id} value={make.year}>{make.year}</option>
                     })}
                 </select>
             </div>
