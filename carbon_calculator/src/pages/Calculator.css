@@ -30,8 +30,8 @@
     background-color: transparent;
     border: 2px solid black;
     border-radius: 4px;
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
 }
 
 .estimates-btn:hover {
@@ -41,7 +41,7 @@
 .estimates-label {
     position: absolute;
     right: 10px;
-    top: 57px;
+    top: 50px;
     font-size: 12px;
     color: white;
     padding: 4px;
@@ -64,4 +64,10 @@
     justify-content: center;
 }
 
+
+@media screen and (max-width: 1100px) {
+    .Calculator {
+        margin: 0 20px;
+    }
+}
 

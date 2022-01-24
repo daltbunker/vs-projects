@@ -35,15 +35,15 @@ export default function EstimateCard(props) {
                 </div>
             )
         } else if (props.data.type === "vehicle") {
-            // const {type, transport_method, distance_unit, distance_value, weight_unit, weight_value} = props.data
-            // return (
-            //     <div className="estimate-data estimate-header">
-            //         <div className="header-title">{type}: {transport_method}</div>
-            //         <div className="header-input">
-            //             {distance_value}({distance_unit}) - {weight_value}({weight_unit}) 
-            //         </div>
-            //     </div>
-            // )
+            const {type, distance_unit, distance_value, vehicle_make, vehicle_model} = props.data
+            return (
+                <div className="estimate-data estimate-header">
+                    <div className="header-title">{type}: {vehicle_make} {vehicle_model}</div>
+                    <div className="header-input">
+                        {distance_value} ({distance_unit}) 
+                    </div>
+                </div>
+            )
         }
     }
 

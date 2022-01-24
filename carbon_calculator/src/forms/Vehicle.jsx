@@ -125,15 +125,6 @@ function Vehicle() {
         })
     }
 
-    function setVehicleModelId(id) {
-        setFormInput(prevFormInput => {
-            return {
-                ...prevFormInput,
-                vehicle_model_id: id
-            }
-        })
-    }
-
     function handleSubmit(e) {
         e.preventDefault()
         const vehicleData = {
