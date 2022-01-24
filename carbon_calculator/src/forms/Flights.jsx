@@ -92,8 +92,8 @@ export default function Flights() {
 
     function handleSubmit(e) {
         e.preventDefault()
-        setLoading(true)
         if (validateInput()) {
+            setLoading(true)
             
             axios
                 .post("https://www.carboninterface.com/api/v1/estimates", formInput, config)
@@ -102,7 +102,10 @@ export default function Flights() {
                     addEstimate({type: "flights", ...carbonEstimateObj})
                     setLoading(false)
                 })
-                .catch(() => alert("Sorry, we couldn't complete your request. Please try again."))
+                .catch(() => {
+                    alert("Sorry, we couldn't complete your request. Please try again.")
+                    setLoading(false)
+                })
 
         }
     }

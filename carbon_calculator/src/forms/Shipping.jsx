@@ -42,8 +42,8 @@ export default function Shipping() {
 
     function handleSubmit(e) {
         e.preventDefault()
-        setLoading(true)
         if (validateInput()) {
+            setLoading(true)
             axios
                 .post("https://www.carboninterface.com/api/v1/estimates", formInput, config)
                 .then(resp => {
@@ -51,7 +51,10 @@ export default function Shipping() {
                     addEstimate({type: "shipping", ...carbonEstimateObj})
                     setLoading(false)
                 })
-                .catch(() => alert("Sorry, we couldn't complete your request. Please try again."))
+                .catch(() => {
+                    alert("Sorry, we couldn't complete your request. Please try again.")
+                    setLoading(false)
+                })
         }
 
     }

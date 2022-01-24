@@ -46,8 +46,8 @@ export default function Electricity() {
 
     function handleSubmit(e) {
         e.preventDefault()
-        setLoading(true)
         if (validateInput()) {
+            setLoading(true)
             const data = {
                 ...formInput,
                 country: countries[formInput.country]
@@ -59,7 +59,10 @@ export default function Electricity() {
                     addEstimate({type: "electricity", ...carbonEstimateObj})
                     setLoading(false)
                 })
-                .catch(() => alert("Sorry, we couldn't complete your request. Please try again."))
+                .catch(() => {
+                    alert("Sorry, we couldn't complete your request. Please try again.")
+                    setLoading(false)
+                })
         }
     }
 

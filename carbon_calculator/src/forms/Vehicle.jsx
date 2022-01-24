@@ -101,7 +101,10 @@ function Vehicle() {
                 setLoading(false)
                 
             })
-            .catch(() => alert("Sorry, we couldn't complete your request. Please try again."))
+            .catch(() => {
+                alert("Sorry, we couldn't complete your request. Please try again.")
+                setLoading(false)
+            })
     }
 
     function getYears(name) {
@@ -148,7 +151,10 @@ function Vehicle() {
                     addEstimate({type: "vehicle", ...carbonEstimateObj})
                     setLoading(false)
                 })
-                .catch(() => alert("Sorry, we couldn't complete your request. Please try again."))
+                .catch(() => {
+                    alert("Sorry, we couldn't complete your request. Please try again.")
+                    setLoading(false)
+                })
     }
 
     return (
