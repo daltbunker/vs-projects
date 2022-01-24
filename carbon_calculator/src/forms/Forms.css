@@ -9,6 +9,45 @@
     padding: 20px;
 }
 
+.loader {
+    font-family: 'Nunito';
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    border-radius: 4px;
+    padding: 10px;
+
+}
+
+.loader::after {
+    content: ".";
+    animation: loading 1s infinite;
+}
+
+@keyframes loading {
+    0% {
+        content: "."
+    }
+
+    25% {
+        content: ".."
+    }
+
+    50% {
+        content: "..."
+    }
+
+    75% {
+        content: "...."
+    }
+
+    100% {
+        content : "....."
+    }
+    
+} 
+
+
 form {
     display: flex;
     margin-top: 20px;
@@ -62,7 +101,7 @@ form {
 .search-results {
     position: absolute;
     top: 30px;
-    z-index: 10;
+    z-index: 20;
     width: 180px;
     padding: 5px;
     border: 1px solid rgba(126, 126, 126, 0.432);

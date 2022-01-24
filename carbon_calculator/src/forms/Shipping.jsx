@@ -14,6 +14,7 @@ export default function Shipping() {
         transport_method: "ship"
       }
     const [formInput, setFormInput] = useState(defaultFormInput)
+    const [loading, setLoading] = useState(false)
     const {addEstimate} = useContext(EstimatesContext)
 
     function handleChange(e) {
@@ -41,19 +42,23 @@ export default function Shipping() {
 
     function handleSubmit(e) {
         e.preventDefault()
+        setLoading(true)
         if (validateInput()) {
             axios
                 .post("https://www.carboninterface.com/api/v1/estimates", formInput, config)
                 .then(resp => {
                     const carbonEstimateObj = resp.data.data.attributes
                     addEstimate({type: "shipping", ...carbonEstimateObj})
+                    setLoading(false)
                 })
+                .catch(() => alert("Sorry, we couldn't complete your request. Please try again."))
         }
 
     }
     return (
         <div className="form-container">
-            <form onSubmit={(e) => handleSubmit(e)}>
+            <div className="loader" style={{display: loading ? "block" : "none"}}>loading.</div>
+            <form onSubmit={(e) => handleSubmit(e)} style={{opacity: loading ? "50%" : "100%"}}>
                 <div className="input-container">
                     <label>Unit (weight): </label>
                     <select name="weight_unit" value={formInput.weight_unit} onChange={(e) => handleChange(e)}>

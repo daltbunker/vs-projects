@@ -23,6 +23,7 @@ function Vehicle() {
     const [formInput, setFormInput] = useState(defaultFormInput)
     const [vehicle, setVehicle] = useState(defaultVehicle)
     const [searchResults, setSearchResults] = useState([])
+    const [loading, setLoading] = useState(false)
     const [selectedInput, setSelectedInput] = useState("")
     const {addEstimate} = useContext(EstimatesContext)
 
@@ -33,6 +34,8 @@ function Vehicle() {
                 const allMakes = resp.data.map(make => ({name: make.data.attributes.name, id: make.data.id}))
                 setVehicle({makes: [...allMakes], models: [], years: []})
             })
+            .catch(() => alert("Sorry, somwehing went wrong on our end. Please refresh the page."))
+            
     }, [])
 
     function handleInputChange(e) {
@@ -84,6 +87,7 @@ function Vehicle() {
     }
 
     function getModels(id) {
+        setLoading(true)
         axios
             .get(`https://www.carboninterface.com/api/v1/vehicle_makes/${id}/vehicle_models`, config)
             .then(resp => {
@@ -94,7 +98,10 @@ function Vehicle() {
                         models: [...allModels]
                     }
                 })
+                setLoading(false)
+                
             })
+            .catch(() => alert("Sorry, we couldn't complete your request. Please try again."))
     }
 
     function getYears(name) {
@@ -127,6 +134,7 @@ function Vehicle() {
 
     function handleSubmit(e) {
         e.preventDefault()
+        setLoading(true)
         const vehicleData = {
             type: formInput.type,
             distance_unit: formInput.distance_unit,
@@ -138,12 +146,15 @@ function Vehicle() {
                 .then(resp => {
                     const carbonEstimateObj = resp.data.data.attributes
                     addEstimate({type: "vehicle", ...carbonEstimateObj})
+                    setLoading(false)
                 })
+                .catch(() => alert("Sorry, we couldn't complete your request. Please try again."))
     }
 
     return (
         <div className="form-container">
-            <form onSubmit={(e) => handleSubmit(e)} autoComplete="off">
+            <div className="loader" style={{display: loading ? "block" : "none"}}>loading.</div>
+            <form onSubmit={(e) => handleSubmit(e)} autoComplete="off" style={{opacity: loading ? "50%" : "100%"}}>
             <div className="input-container">
                 <label>Unit: </label>
                 <select name="distance_unit" onChange={(e) => handleInputChange(e)}>

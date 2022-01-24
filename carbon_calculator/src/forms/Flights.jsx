@@ -16,6 +16,7 @@ export default function Flights() {
     }
     const {addEstimate} = useContext(EstimatesContext)
     const [formInput, setFormInput] = useState(defaultFormInput)
+    const [loading, setLoading] = useState(false)
     const [searchResults, setSearchResults] = useState([])
     const [departSearch, setDepartSearch] = useState(true)
     const {airports} = require('../locationData.json')
@@ -91,6 +92,7 @@ export default function Flights() {
 
     function handleSubmit(e) {
         e.preventDefault()
+        setLoading(true)
         if (validateInput()) {
             
             axios
@@ -98,7 +100,10 @@ export default function Flights() {
                 .then(resp => {
                     const carbonEstimateObj = resp.data.data.attributes
                     addEstimate({type: "flights", ...carbonEstimateObj})
+                    setLoading(false)
                 })
+                .catch(() => alert("Sorry, we couldn't complete your request. Please try again."))
+
         }
     }
 
@@ -117,7 +122,8 @@ export default function Flights() {
 
     return (
         <div className="form-container">
-            <form onSubmit={(e) => handleSubmit(e)} autoComplete="off">
+            <div className="loader" style={{display: loading ? "block" : "none"}}>loading.</div>
+            <form onSubmit={(e) => handleSubmit(e)} autoComplete="off" style={{opacity: loading ? "50%" : "100%"}}>
                 <div className="input-container">
                     <label>Passengers: </label>
                     <input 

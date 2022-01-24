@@ -16,6 +16,7 @@ export default function Electricity() {
     }
     const {countries, states, provinces} = require('../locationData.json')
     const [formInput, setFormInput] = useState(defaultFormInput)
+    const [loading, setLoading] = useState(false)
     const {addEstimate} = useContext(EstimatesContext)
 
     function handleInputChange(e) {
@@ -45,6 +46,7 @@ export default function Electricity() {
 
     function handleSubmit(e) {
         e.preventDefault()
+        setLoading(true)
         if (validateInput()) {
             const data = {
                 ...formInput,
@@ -55,7 +57,9 @@ export default function Electricity() {
                 .then(resp => {
                     const carbonEstimateObj = resp.data.data.attributes
                     addEstimate({type: "electricity", ...carbonEstimateObj})
+                    setLoading(false)
                 })
+                .catch(() => alert("Sorry, we couldn't complete your request. Please try again."))
         }
     }
 
@@ -73,7 +77,8 @@ export default function Electricity() {
 
     return (
         <div className="form-container">
-            <form onSubmit={(e) => handleSubmit(e)}>
+            <div className="loader" style={{display: loading ? "block" : "none"}}>loading.</div>
+            <form onSubmit={(e) => handleSubmit(e)} style={{opacity: loading ? "50%" : "100%"}}>
                 <div className="input-container">
                     <label>Unit: </label>
                     <select name="electricity_unit" onChange={handleInputChange}>
