@@ -21,3 +21,83 @@
     color: black;
     text-decoration: none;
 }
+
+.nav-link:nth-child(1)::after {
+    content: "Electricity";
+}
+
+.nav-link:nth-child(2):after {
+    content: "Flights";
+}
+
+.nav-link:nth-child(3):after {
+    content: "Vehicle";
+}
+
+.nav-link:nth-child(4)::after {
+    content: "Shipping";
+}
+
+@media screen and (max-width: 850px) {
+
+    .Navbar {
+        border: transparent;
+    }
+
+    .nav-link:nth-child(1)::after {
+        content: none;
+    }
+    
+    .nav-link:nth-child(2):after {
+        content: none;
+    }
+    
+    .nav-link:nth-child(3):after {
+        content: none;
+    }
+    
+    .nav-link:nth-child(4)::after {
+        content: none;
+    }
+
+    .nav-link {
+        background-position: center;
+        background-size: 70%;
+        background-repeat: no-repeat;
+        width: 70px;
+        height: 70px;
+    }
+
+    .nav-link:nth-child(1) {
+        background-image: url(../images/plugin.png);
+    }
+    
+    .nav-link:nth-child(2) {
+        background-image: url(../images/plane.png);
+    }
+    
+    .nav-link:nth-child(3) {
+        background-image: url(../images/car.png);
+    }
+    
+    .nav-link:nth-child(4) {
+        background-image: url(../images/package-box.png);
+    }
+}
+
+@media screen and (max-width: 650px) {
+
+    .Navbar {
+        margin-top: 40px;
+    }
+
+    .nav-link {
+        width: 35px;
+        height: 35px;
+        margin: 20px 0;
+    }
+
+    .nav-link:active {
+        opacity: 40%;
+    }
+}

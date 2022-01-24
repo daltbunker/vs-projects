@@ -80,3 +80,35 @@
 .shipping-link:hover::after {
     content: "SHIPPING";
 }
+
+@media screen and (max-width: 850px) {
+
+    .Home {
+        height: auto;
+    }
+
+    .estimate-links {
+        flex-direction: column;
+        margin-top: 90px;
+    }
+
+    .estimate-link {
+        margin: 20px 0;
+    }
+
+}
+
+@media screen and (max-width: 650px) {
+
+    .title {
+        font-size: 20px;
+    }
+
+    .estimate-links {
+        margin-top: 70px;
+    }
+
+    .estimate-link {
+        background-position: 50% 50%;
+    }
+}

@@ -71,3 +71,23 @@
     }
 }
 
+@media screen and (max-width: 650px) {
+
+    .Calculator {
+        margin: 0 5px;
+    }
+
+    .calculator-title {
+        font-size: 12px;
+    }
+
+    .route-title {
+        top: 10px;
+    }
+
+    .estimates-btn {
+        width: 20px;
+        height: 20px;
+    }
+}
+

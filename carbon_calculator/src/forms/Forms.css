@@ -35,6 +35,7 @@ form {
 .input-container select {
     width: 200px;
     height: 25px;
+    z-index: 10;
 }
 
 .input-container input {
@@ -75,4 +76,51 @@ form {
 .search-result:hover {
     background-color: rgba(42, 42, 189, 0.37);
     cursor: pointer;
+}
+
+@media screen and (max-width: 1100px) {
+    .form-container {
+        width: 20%;
+    }
+
+    .input-container input {
+        width: 150px;
+    }
+
+    .input-container select {
+        width: 160px;
+    }
+}
+
+@media screen and (max-width: 850px) {
+
+    .form-container {
+        width: 30%;
+    }
+
+    .input-container input {
+        width: 180px;
+    }
+
+    .input-container select {
+        width: 190px;
+    }
+
+}
+
+@media screen and (max-width: 650px) {
+
+    .form-container {
+        width: 50%;
+        margin-top: 30px;
+    }
+
+    .input-container input {
+        width: 150px;
+    }
+
+    .input-container select {
+        width: 160px;
+    }
+
 }

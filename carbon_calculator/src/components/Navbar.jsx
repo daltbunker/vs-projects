@@ -10,45 +10,41 @@ export default function Navbar() {
                 to="/calculator/electricity" 
                 style={({ isActive }) => {
                     return {
-                        borderBottom: isActive ? "2px solid black" : "none"
+                        opacity: isActive ? "100%" : "50%",
+                        fontWeight: "bold"
                     };
                 }}
-            >
-                Electricity
-            </NavLink>
+            />
             <NavLink 
                 className="nav-link"
                 to="/calculator/flights" 
                 style={({ isActive }) => {
                     return {
-                        borderBottom: isActive ? "2px solid black" : "none"
+                        opacity: isActive ? "100%" : "50%",
+                        fontWeight: "bold"
                     };
                     }}
-            >
-                Flights
-            </NavLink>
+            />
             <NavLink 
                 className="nav-link"
                 to="/calculator/vehicle" 
                 style={({ isActive }) => {
                     return {
-                        borderBottom: isActive ? "2px solid black" : "none"
+                        opacity: isActive ? "100%" : "50%",
+                        fontWeight: "bold"
                     };
                     }}
-            >
-                Vehicle
-            </NavLink>
+            />
             <NavLink 
                 className="nav-link"
                 to="/calculator/shipping" 
                 style={({ isActive }) => {
                     return {
-                        borderBottom: isActive ? "2px solid black" : "none"
+                        opacity: isActive ? "100%" : "50%",
+                        fontWeight: "bold"
                     };
                 }}
-            >
-                Shipping
-            </NavLink>
+            />
         </div>
     )
 }

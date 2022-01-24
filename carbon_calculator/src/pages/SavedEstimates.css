@@ -49,3 +49,20 @@
     position: absolute;
     top: 100px;
 }
+
+@media screen and (max-width: 850px) {
+
+    .estimates {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .calculator-link {
+        left: 30px;
+    }
+
+    .back-btn {
+        right: 30px;
+    }
+
+}
