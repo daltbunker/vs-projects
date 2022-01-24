@@ -18,7 +18,7 @@ export default function Calculator() {
 
     useEffect(() => {
         clearCarbonEstimate()
-    }, [estimateType])
+    }, [estimateType, clearCarbonEstimate])
 
     function displayLabel(){
         if (!labelTimer) {
