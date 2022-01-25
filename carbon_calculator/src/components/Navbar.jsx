@@ -10,7 +10,7 @@ export default function Navbar() {
                 to="/calculator/electricity" 
                 style={({ isActive }) => {
                     return {
-                        opacity: isActive ? "100%" : "50%",
+                        color: isActive ? "rgb(175, 22, 22)" : "black",
                         fontWeight: "bold"
                     };
                 }}
@@ -20,7 +20,7 @@ export default function Navbar() {
                 to="/calculator/flights" 
                 style={({ isActive }) => {
                     return {
-                        opacity: isActive ? "100%" : "50%",
+                        color: isActive ? "rgb(175, 22, 22)" : "black",
                         fontWeight: "bold"
                     };
                     }}
@@ -30,7 +30,7 @@ export default function Navbar() {
                 to="/calculator/vehicle" 
                 style={({ isActive }) => {
                     return {
-                        opacity: isActive ? "100%" : "50%",
+                        color: isActive ? "rgb(175, 22, 22)" : "black",
                         fontWeight: "bold"
                     };
                     }}
@@ -40,7 +40,7 @@ export default function Navbar() {
                 to="/calculator/shipping" 
                 style={({ isActive }) => {
                     return {
-                        opacity: isActive ? "100%" : "50%",
+                        color: isActive ? "rgb(175, 22, 22)" : "black",
                         fontWeight: "bold"
                     };
                 }}
