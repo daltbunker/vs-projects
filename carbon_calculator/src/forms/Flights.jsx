@@ -62,7 +62,7 @@ export default function Flights() {
     function filterSearchResults(value) {
         if (value.length > 0) {
             const airportList = Object.keys(airports)
-            const searchParam = new RegExp(value)
+            const searchParam = new RegExp("^" + value, "i")
             const results = airportList.filter(airport => searchParam.test(airport))
             setSearchResults(results)
         } else {

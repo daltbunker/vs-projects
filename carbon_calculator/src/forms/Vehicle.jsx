@@ -70,7 +70,7 @@ function Vehicle() {
         const {name, value} = e.target
         if (value.length > 0) {
             let results
-            const searchParam = new RegExp(value)
+            const searchParam = new RegExp("^" + value, 'i')
             switch(name) {
                 case "vehicle_make":
                     results = vehicle.makes.filter(make => searchParam.test(make.name))
@@ -83,6 +83,8 @@ function Vehicle() {
                     break
             }
             setSearchResults(results)
+        } else if (searchResults.length > 0) {
+            setSearchResults([])
         }
     }
 
