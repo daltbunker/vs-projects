@@ -34,7 +34,7 @@ function Vehicle() {
                 const allMakes = resp.data.map(make => ({name: make.data.attributes.name, id: make.data.id}))
                 setVehicle({makes: [...allMakes], models: [], years: []})
             })
-            .catch(() => alert("Sorry, somwehing went wrong on our end. Please refresh the page."))
+            .catch(() => alert("Sorry, something went wrong on our end. Please refresh the page."))
             
     }, [])
 
