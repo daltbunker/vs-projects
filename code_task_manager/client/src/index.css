@@ -1,0 +1,183 @@
+body {
+  margin: 0;
+  font-size: 17px;
+  background-color: black;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* #region @BUTTONS */
+
+.primary-btn {
+  font-size: 1em;
+  width: 10em;
+  text-transform: uppercase;
+  border: none;
+  font-weight: bold;
+  padding: 10px 5px;
+  cursor: pointer;
+  transition: 200ms;
+}
+
+.secondary-btn {
+  font-size: 0.6em;
+  border: 1px solid black;
+  width: 7em;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 6px 3px;
+  cursor: pointer;
+  transition: 200ms;
+}
+
+.button-container {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  height: calc(20vw);
+  min-height: 120px;
+  max-height: 160px;
+}
+
+.basic-btn {
+  cursor: pointer;
+  transition: 200ms;
+}
+
+.secondary-btn:hover, .primary-btn:hover, .basic-btn:hover {
+  transform: scale(1.05);
+}
+
+.green {
+  background-color: #00cf3b;
+  color: white;
+}
+
+.white {
+  background-color: #ffffff;
+  color: black;
+}
+
+.black {
+  background-color: black;
+  color: white;
+}
+
+/* #endregion */
+
+/* #region @CONTAINERS */
+
+.dresser-row {
+  display: flex;
+  flex-direction: row;
+  column-gap: 10px;
+  align-items: center;
+}
+
+.dresser-col {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  align-items: center;
+}
+
+.main-container {
+  padding: 4em 1em;
+}
+
+.floating-container {
+  position: absolute;
+  width: 80px
+}
+
+.center-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* #endregion */
+
+/* #region @FORM */
+
+.input-container {
+  margin: 1.3em 0;
+  position: relative;
+}
+
+.input-container label {
+  font-size: 1.2em;
+  color: white;
+  position: absolute;
+  top: -1.5em;
+}
+
+.input-container input {
+  height: 20px
+}
+
+.input-container select {
+  height: 30px;
+  width: 147px;
+}
+
+.error-message {
+  position: absolute;
+  right: -160px;
+  top: 10px;
+  color: rgb(199, 36, 36);
+  font-size: 0.7em;
+  width: 100%;
+}
+
+/* #endregion */
+
+.grow {
+  cursor: pointer;
+  transition: 200ms;
+}
+
+.grow:hover {
+  transform: scale(1.2);
+}
+
+.stripped {
+  background-color: transparent;
+  border: 0;
+  color: white;
+  text-decoration: none;
+}
+
+.fa-eye {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+}
+
+.disabled {
+  opacity: 30%;
+}
+
+.note {
+  background-color: #dddddd;
+  border-radius: 2px;
+  padding: 2px 0px;
+  font-size: 14px;
+  width: 70%;
+}
+
+@media screen and (max-width: 600px){
+  body {
+    font-size: 13px;
+  }
+}

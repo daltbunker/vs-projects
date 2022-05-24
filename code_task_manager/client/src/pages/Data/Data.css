@@ -1,0 +1,26 @@
+.svg {
+    border: 1px solid black;
+    padding: 10px 10px 0 10px;
+}
+
+
+.bar:hover {
+    fill: #04e644;
+}
+.a {
+    color: #ff000057;
+}
+
+.graph-container {
+    padding: 40px;;
+}
+
+.tooltip {
+    background-color: white;
+    color: black;
+    border-radius: 2px;
+    text-align: center;
+    font-size: 12px;
+    padding: 3px 12px;
+    pointer-events: none;
+}
